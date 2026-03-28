@@ -1,0 +1,27 @@
+FeatureFile:
+    feature=Feature
+;
+
+Feature:
+    'Feature:' name=Text scenarios+=Scenario
+;
+
+Scenario:
+    'Scenario:' name=Text steps+=Step
+;
+
+Step:
+    keyword=StepKeyword text=Text
+;
+
+StepKeyword:
+    'Given'|'When'|'Then'|'And'|'But'
+;
+
+Text:
+    /[^\n\r]+/
+;
+
+Comment:
+    /#[^\n\r]*/
+;

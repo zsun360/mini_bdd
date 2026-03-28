@@ -1,0 +1,2 @@
+# requirements.txt
+textX==4.2.3

@@ -1,11 +1,30 @@
 {
-  "feature": "Calculator core flow",
+  "feature": "Calculator with reusable setup",
   "status": "passed",
   "scenarios": [
     {
       "name": "add two numbers",
+      "rule": "Addition and subtraction",
       "status": "passed",
+      "source": {
+        "kind": "scenario",
+        "rule": "Addition and subtraction"
+      },
       "steps": [
+        {
+          "keyword": "Given",
+          "effective_keyword": "given",
+          "text": "I am in calc mode",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "keyword": "Given",
+          "effective_keyword": "given",
+          "text": "the service is healthy",
+          "status": "passed",
+          "error": ""
+        },
         {
           "keyword": "Given",
           "effective_keyword": "given",
@@ -30,20 +49,40 @@
       ]
     },
     {
-      "name": "subtract with And and But",
+      "name": "subtract many cases [1.1]",
+      "rule": "Addition and subtraction",
       "status": "passed",
+      "source": {
+        "kind": "outline",
+        "outline_name": "subtract many cases",
+        "examples_name": "happy path",
+        "examples_index": 1,
+        "row_index": 1,
+        "row_data": {
+          "a": "10",
+          "b": "4",
+          "expected": "6"
+        }
+      },
       "steps": [
         {
           "keyword": "Given",
           "effective_keyword": "given",
-          "text": "I have numbers 10 and 4",
+          "text": "I am in calc mode",
           "status": "passed",
           "error": ""
         },
         {
-          "keyword": "And",
+          "keyword": "Given",
           "effective_keyword": "given",
-          "text": "I am in calc mode",
+          "text": "the service is healthy",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "keyword": "Given",
+          "effective_keyword": "given",
+          "text": "I have numbers 10 and 4",
           "status": "passed",
           "error": ""
         },
@@ -60,11 +99,58 @@
           "text": "the result should be 6",
           "status": "passed",
           "error": ""
+        }
+      ]
+    },
+    {
+      "name": "subtract many cases [1.2]",
+      "rule": "Addition and subtraction",
+      "status": "passed",
+      "source": {
+        "kind": "outline",
+        "outline_name": "subtract many cases",
+        "examples_name": "happy path",
+        "examples_index": 1,
+        "row_index": 2,
+        "row_data": {
+          "a": "9",
+          "b": "1",
+          "expected": "8"
+        }
+      },
+      "steps": [
+        {
+          "keyword": "Given",
+          "effective_keyword": "given",
+          "text": "I am in calc mode",
+          "status": "passed",
+          "error": ""
         },
         {
-          "keyword": "But",
+          "keyword": "Given",
+          "effective_keyword": "given",
+          "text": "the service is healthy",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "keyword": "Given",
+          "effective_keyword": "given",
+          "text": "I have numbers 9 and 1",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "keyword": "When",
+          "effective_keyword": "when",
+          "text": "I subtract them",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "keyword": "Then",
           "effective_keyword": "then",
-          "text": "the result should not be 5",
+          "text": "the result should be 8",
           "status": "passed",
           "error": ""
         }

@@ -30,3 +30,8 @@ def result_is(ctx, expected):
 @then(r"^the result should not be (?P<unexpected>\d+)$")
 def result_is_not(ctx, unexpected):
     assert ctx.result != int(unexpected), f"did not expect {unexpected}"
+
+@given(r"^the service is healthy$")
+def service_healthy(ctx):
+    ctx.service_ok = True
+

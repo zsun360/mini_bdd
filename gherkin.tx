@@ -1,27 +1,89 @@
+// gherkin.tx — Level 5 grammar
+
 FeatureFile:
     feature=Feature
 ;
 
+// A Feature, with optional Background and child items
 Feature:
-    'Feature:' name=Text scenarios+=Scenario
+    'Feature:' name=Line
+    background=Background?
+    items*=FeatureItem
 ;
 
+// Items under Feature: Rule or regular Scenario / Scenario Outline
+FeatureItem:
+    Rule | Scenario | ScenarioOutline
+;
+
+// Rule itself can also have a Background and internal scenarios
+Rule:
+    'Rule:' name=Line
+    background=Background?
+    items*=RuleItem
+;
+
+RuleItem:
+    Scenario | ScenarioOutline
+;
+
+// Background: Common prerequisite steps
+Background:
+    'Background:' name=Line?
+    steps+=Step
+;
+
+// Regular scenario (supports Scenario / Example keywords)
 Scenario:
-    'Scenario:' name=Text steps+=Step
+    ('Scenario:' | 'Example:') name=Line
+    steps+=Step
 ;
 
+// Scenario outline (supports Scenario Outline / Scenario Template keywords)
+ScenarioOutline:
+    ('Scenario Outline:' | 'Scenario Template:') name=Line
+    steps+=Step
+    examples+=ExamplesBlock
+;
+
+// Examples block (can have a name)
+ExamplesBlock:
+    ('Examples:' | 'Scenarios:') name=Line?
+    table=ExamplesTable
+;
+
+// Table: The first row is the header, followed by data rows
+ExamplesTable:
+    header=TableRow
+    rows+=TableRow
+;
+
+// A row: | cell | cell |
+TableRow:
+    '|' cells+=Cell['|'] '|'
+;
+
+// A single Step
 Step:
-    keyword=StepKeyword text=Text
+    keyword=StepKeyword text=Line
 ;
 
+// Step keywords: Includes And/But/*, where * means inheriting the previous main keyword
 StepKeyword:
-    'Given'|'When'|'Then'|'And'|'But'
+    'Given' | 'When' | 'Then' | 'And' | 'But' | '*'
 ;
 
-Text:
+// Table cell content (excluding | and line breaks)
+Cell:
+    /[^|\n\r]+/
+;
+
+// A full line of text (until line break)
+Line:
     /[^\n\r]+/
 ;
 
+// Comments
 Comment:
-    /#[^\n\r]*/
+    /[ \t]*#[^\n\r]*/
 ;
